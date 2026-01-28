@@ -59,9 +59,11 @@ export default function Home() {
             <button className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2">
               View Projects <ChevronRight className="w-4 h-4" />
             </button>
-            <button className="border border-white/20 px-8 py-3 rounded-full font-medium hover:bg-white/5 transition-colors flex items-center gap-2">
-              Blog <BookOpen className="w-4 h-4" />
-            </button>
+            <Link href="/blog">
+              <button className="border border-white/20 px-8 py-3 rounded-full font-medium hover:bg-white/5 transition-colors flex items-center gap-2">
+                Blog <BookOpen className="w-4 h-4" />
+              </button>
+            </Link>
           </motion.div>
         </div>
       </section>

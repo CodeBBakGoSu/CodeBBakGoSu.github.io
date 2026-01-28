@@ -1,5 +1,11 @@
-// Blog Engine logic will be implemented here
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const postsDirectory = path.join(process.cwd(), 'src/content/posts');
+
 export interface Post {
+  slug: string;
   title: string;
   date: string;
   description: string;
@@ -7,7 +13,39 @@ export interface Post {
   content: string;
 }
 
-export async function getLatestPosts(): Promise<Post[]> {
-  // Mocking data for now
-  return [];
+export function getAllPostSlugs() {
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        slug: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
+}
+
+export function getPostData(slug: string): Post {
+  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const { data, content } = matter(fileContents);
+
+  return {
+    slug,
+    content,
+    title: data.title,
+    date: data.date,
+    description: data.description,
+    tags: data.tags,
+  };
+}
+
+export function getAllPosts(): Post[] {
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPostsData = fileNames.map((fileName) => {
+    const slug = fileName.replace(/\.md$/, '');
+    return getPostData(slug);
+  });
+
+  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
