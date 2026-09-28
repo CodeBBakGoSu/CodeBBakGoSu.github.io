@@ -34,3 +34,7 @@ originalUrl: https://bbakgosu.tistory.com/44
 ## 배포와 도메인
 
 `main` 브랜치에 push하면 GitHub Actions가 빌드하고 Pages에 배포합니다. 지금은 사용자 사이트 루트 경로를 사용합니다. 커스텀 도메인을 나중에 연결할 때 `public/CNAME`을 추가하고 `astro.config.mjs`의 `site`도 해당 주소로 바꾸세요.
+
+## 이전 자료 확인 사항
+
+요청한 공개 글 34개를 모두 옮겼습니다. `/posts/21/`에 있던 이미지 두 장(`4_12_23_0.png`, `4_12_25_0.png`)은 원본 티스토리에서도 HTTP 404를 반환해 가져올 수 없었습니다. 원본 파일을 찾으면 `public/images/posts/21/`에 넣고 본문 표시 문구를 이미지 링크로 바꿀 수 있습니다.
