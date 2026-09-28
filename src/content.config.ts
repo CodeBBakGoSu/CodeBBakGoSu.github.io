@@ -9,7 +9,7 @@ const posts = defineCollection({
     description: z.string(),
     category: z.enum(['AI', '개발', '투자', '성장·회고', '일상']),
     tags: z.array(z.string()),
-    originalUrl: z.string().url(),
+    originalUrl: z.string().url().optional(),
   }),
 });
 const pages = defineCollection({

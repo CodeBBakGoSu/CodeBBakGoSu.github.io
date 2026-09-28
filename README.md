@@ -23,13 +23,12 @@ description: 검색 결과와 목록에 표시할 150자 안팎의 요약
 category: 개발
 tags:
   - Astro
-originalUrl: https://bbakgosu.tistory.com/44
 ---
 
 본문을 여기에 씁니다.
 ```
 
-카테고리는 `AI`, `개발`, `투자`, `성장·회고`, `일상` 중 하나입니다. 이미지 파일은 `public/images/posts/<번호>/`에 넣고 본문에서는 `/images/posts/<번호>/파일명`으로 참조합니다. 새 글에 티스토리 원문이 없다면 `originalUrl` 스키마와 원문 링크 표시도 함께 조정해야 합니다.
+카테고리는 `AI`, `개발`, `투자`, `성장·회고`, `일상` 중 하나입니다. 이미지 파일은 `public/images/posts/<번호>/`에 넣고 본문에서는 `/images/posts/<번호>/파일명`으로 참조합니다. 티스토리에서 옮긴 글이라면 frontmatter에 `originalUrl: https://bbakgosu.tistory.com/<번호>`를 추가합니다.
 
 ## 배포와 도메인
 
@@ -37,4 +36,4 @@ originalUrl: https://bbakgosu.tistory.com/44
 
 ## 이전 자료 확인 사항
 
-요청한 공개 글 34개를 모두 옮겼습니다. `/posts/21/`에 있던 이미지 두 장(`4_12_23_0.png`, `4_12_25_0.png`)은 원본 티스토리에서도 HTTP 404를 반환해 가져올 수 없었습니다. 두 그림은 글 바로 앞에 실린 Python 그래프 코드의 값과 설정으로 재생성해 `public/images/posts/21/`에 넣었습니다. 원본 PNG를 내려받은 것은 아니므로 원본 파일을 찾으면 교체할 수 있습니다.
+요청한 공개 글 34개를 모두 옮겼습니다. `/posts/21/`의 그래프 두 장은 티스토리 원본 URL이 HTTP 404를 반환했지만, 로컬 `DeZero/MyStudy/4_12/4_12_files/`에서 원본 PNG를 찾아 `public/images/posts/21/`에 넣었습니다.
