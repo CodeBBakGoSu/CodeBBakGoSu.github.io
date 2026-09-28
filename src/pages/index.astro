@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const posts = (await getCollection('posts')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="BBakGoSu IT" description="AI, 개발, 투자, 성장과 일상에서 직접 배우고 경험한 것을 기록합니다." path="/">
+  <section class="hero container"><p class="eyebrow">DEVELOPMENT · AI · NOTES</p><h1>배우고 만들며<br /><em>남긴 기록.</em></h1><p>AI와 백엔드 개발, 일하며 얻은 생각을 차곡차곡 적습니다.</p></section>
+  <section class="container listing"><div class="section-heading"><h2>최근 글</h2><span>{posts.length}개의 기록</span></div><div class="post-list">{posts.map(post => <a class="post-row" href={`/posts/${post.id}/`}><span class="post-category">{post.data.category}</span><div><h3>{post.data.title}</h3><p>{post.data.description}</p></div><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ko-KR')}</time></a>)}</div></section>
+</BaseLayout>

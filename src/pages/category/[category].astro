@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const categories = ['AI', '개발', '투자', '성장·회고', '일상'];
+export async function getStaticPaths() { return ['AI', '개발', '투자', '성장·회고', '일상'].map(category => ({ params: { category }, props: { category } })); }
+const { category } = Astro.props;
+const posts = (await getCollection('posts')).filter(post => post.data.category === category).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+---
+<BaseLayout title={`${category} 글`} description={`${category} 분야의 글 ${posts.length}개를 모았습니다.`} path={`/category/${encodeURIComponent(category)}/`}><section class="container listing listing-page"><p class="eyebrow">CATEGORY</p><h1>{category}</h1><div class="post-list">{posts.map(post => <a class="post-row" href={`/posts/${post.id}/`}><span class="post-category">{post.data.category}</span><div><h3>{post.data.title}</h3><p>{post.data.description}</p></div><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ko-KR')}</time></a>)}</div></section></BaseLayout>

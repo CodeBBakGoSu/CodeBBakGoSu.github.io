@@ -1,0 +1,10 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() { return (await getCollection('posts')).map(post => ({ params: { id: post.id }, props: { post } })); }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.description} path={`/posts/${post.id}/`}>
+  <article class="article container"><div class="article-head"><a class="post-category" href={`/category/${encodeURIComponent(post.data.category)}/`}>{post.data.category}</a><h1>{post.data.title}</h1><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ko-KR')}</time></div><div class="prose"><Content /></div><div class="article-end"><span>태그</span><div>{post.data.tags.map((tag: string) => <a href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>)}</div><a class="original" href={post.data.originalUrl}>티스토리 원문 ↗</a></div></article>
+</BaseLayout>

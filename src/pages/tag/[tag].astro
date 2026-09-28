@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() { const posts = await getCollection('posts'); return [...new Set(posts.flatMap(post => post.data.tags))].map(tag => ({ params: { tag }, props: { tag } })); }
+const { tag } = Astro.props;
+const posts = (await getCollection('posts')).filter(post => post.data.tags.includes(tag)).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+---
+<BaseLayout title={`#${tag}`} description={`${tag} 태그가 달린 글 ${posts.length}개를 모았습니다.`} path={`/tag/${encodeURIComponent(tag)}/`}><section class="container listing listing-page"><p class="eyebrow">TAG</p><h1>#{tag}</h1><div class="post-list">{posts.map(post => <a class="post-row" href={`/posts/${post.id}/`}><span class="post-category">{post.data.category}</span><div><h3>{post.data.title}</h3><p>{post.data.description}</p></div><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ko-KR')}</time></a>)}</div></section></BaseLayout>

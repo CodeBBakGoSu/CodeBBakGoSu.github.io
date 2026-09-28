@@ -1,0 +1,9 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+export async function getStaticPaths() { return (await getCollection('pages')).map(page => ({ params: { page: page.id }, props: { page } })); }
+const { page } = Astro.props;
+const { Content } = await render(page);
+const description = { about: 'BBakGoSu IT 블로그와 운영자를 소개합니다.', contact: 'BBakGoSu IT 문의 방법을 안내합니다.', privacy: 'BBakGoSu IT 개인정보처리방침입니다.' }[page.id] || page.data.title;
+---
+<BaseLayout title={page.data.title} description={description} path={`/${page.id}/`}><article class="article container"><div class="article-head"><p class="eyebrow">BBakGoSu IT</p><h1>{page.data.title}</h1></div><div class="prose"><Content /></div></article></BaseLayout>

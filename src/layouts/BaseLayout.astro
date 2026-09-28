@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+const { title, description, path = '/', image } = Astro.props;
+const siteTitle = 'BBakGoSu IT';
+const fullTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}`;
+const canonical = new URL(path, Astro.site);
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+const categories = ['AI', '개발', '투자', '성장·회고', '일상'];
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:locale" content="ko_KR" />
+    <link rel="alternate" type="application/rss+xml" title={siteTitle} href="/rss.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4SZHXVGV21"></script>
+    <script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-4SZHXVGV21');</script>
+    <!-- AdSense: approval 후 광고 스크립트를 이곳에 한 번만 추가 -->
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="wordmark" href="/">BBakGoSu <span>IT</span></a>
+        <nav aria-label="주요 메뉴"><a href="/">전체 글</a>{categories.map(category => <a href={`/category/${encodeURIComponent(category)}/`}>{category}</a>)}</nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer"><div class="footer-inner"><span>© {new Date().getFullYear()} BBakGoSu IT</span><nav aria-label="기타 메뉴"><a href="/tags/">태그</a><a href="/about/">소개</a><a href="/contact/">연락처</a><a href="/privacy/">개인정보처리방침</a><a href="/rss.xml">RSS</a></nav></div></footer>
+  </body>
+</html>
